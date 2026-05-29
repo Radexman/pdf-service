@@ -1,0 +1,53 @@
+{
+	"meta": {
+		"apiary_name": "Pasieka Siek",
+		"beekeeper_name": "Radosław Siek",
+		"veterinary_number": "160947166",
+		"hive_number": "12",
+		"inspection_number": "8",
+		"inspection_date": "2026-08-14"
+	},
+	"weather": {
+		"temp": 19,
+		"humidity": 72,
+		"wind": 6,
+		"precipitation": 1.2,
+		"cloud_cover": 85,
+		"weather_code": 61
+	},
+	"queen": {
+		"queen_status": "seen",
+		"queen_marked": false,
+		"queen_marker_color": null,
+		"queen_cells": "swarm",
+		"queen_cells_count": 6
+	},
+	"brood": {
+		"brood_types": ["open", "capped"],
+		"brood_pattern": 3
+	},
+	"colony": {
+		"frames_covered": 11,
+		"behavior": "swarm_mood",
+		"honey_stores": "sufficient",
+		"hive_space": "tight",
+		"honey_kg": 18.0
+	},
+	"comb": {
+		"frames_brood": 7,
+		"frames_honey": 4,
+		"frames_pollen": 2,
+		"frames_empty": 0,
+		"comb_condition": "needs_replacement"
+	},
+	"actions": {
+		"selected": ["split_made", "queen_cells_removed", "super_added", "treatment_formic_acid", "other"],
+		"other": "Usunieto plastry z mumiami grzybicy wapiennej i odkazono dennice"
+	},
+	"health": {
+		"conditions": ["varroa", "chalkbrood", "other"],
+		"varroa_drop_count": 38,
+		"other": "Pojedyncze komorki czerwiu z objawami zgnilca - pobrano probke do badania"
+	},
+	"notes": "Rodzina w nastroju rojowym - 6 matecznikow rojowych, ciasno w gniezdzie. Wykonano odklad, usunieto mateczniki, dodano nadstawke. Stwierdzono grzybice wapienna (mumie na dnie) oraz osyp Varroa 38/24h - podano kwas mrowkowy. Podejrzenie zgnilca - probka wyslana do laboratorium, do czasu wyniku ul pod obserwacja."
+}

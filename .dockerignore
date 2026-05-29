@@ -1,0 +1,10 @@
+# Keep the image small and the build fast: don't copy these into the container.
+.venv/
+__pycache__/
+*.pyc
+.git/
+.gitignore
+.vscode/
+*.pdf
+out.pdf
+_validate_tmp.py

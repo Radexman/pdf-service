@@ -1,0 +1,53 @@
+{
+	"meta": {
+		"apiary_name": "Pasieka Siek",
+		"beekeeper_name": "Radosław Siek",
+		"veterinary_number": "160947166",
+		"hive_number": "12",
+		"inspection_number": "8",
+		"inspection_date": "2026-08-14"
+	},
+	"weather": {
+		"temp": 27,
+		"humidity": 48,
+		"wind": 11,
+		"precipitation": 0.0,
+		"cloud_cover": 20,
+		"weather_code": 1
+	},
+	"queen": {
+		"queen_status": "not_seen_brood_ok",
+		"queen_marked": true,
+		"queen_marker_color": "red",
+		"queen_cells": "none",
+		"queen_cells_count": 0
+	},
+	"brood": {
+		"brood_types": ["eggs", "open", "capped", "drone"],
+		"brood_pattern": 2
+	},
+	"colony": {
+		"frames_covered": 7,
+		"behavior": "nervous",
+		"honey_stores": "low",
+		"hive_space": "ok",
+		"honey_kg": 6.0
+	},
+	"comb": {
+		"frames_brood": 4,
+		"frames_honey": 2,
+		"frames_pollen": 1,
+		"frames_empty": 3,
+		"comb_condition": "old"
+	},
+	"actions": {
+		"selected": ["comb_removed_drone", "treatment_oxalic_acid", "entrance_reduced"],
+		"other": null
+	},
+	"health": {
+		"conditions": ["varroa", "dwv"],
+		"varroa_drop_count": 95,
+		"other": null
+	},
+	"notes": "Silna inwazja Varroa - osyp 95 roztoczy/24h, widoczne zdeformowane skrzydla u mlodych pszczol (DWV). Wycieto czerw trutowy i podano kwas szczawiowy przez odparowanie. Kontrola osypu za 7 dni; jesli >50/24h - powtorzyc zabieg. Zwezono wylotek, rodzina oslabiona."
+}

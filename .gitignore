@@ -1,0 +1,26 @@
+# Virtual environment (re-created from requirements.txt, never committed)
+.venv/
+venv/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Generated / test PDFs
+*.pdf
+
+# Local scratch files
+_validate_tmp.py
+out.pdf
+
+# Editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Secrets / local env (never commit credentials, e.g. R2 keys)
+.env
+.env.*

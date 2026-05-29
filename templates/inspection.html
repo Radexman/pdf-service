@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8" />
+		<style>
+			@page {
+				size: A4;
+				margin: 14mm;
+			}
+
+			:root {
+				--ink: #1a1a18;
+				--ink-light: #6b6b65;
+				--line: #c8c6bc;
+				--line-light: #e8e6de;
+				--fill: #f5f3ec;
+				--accent: #2d5a1b;
+				--warn: #8a4a0a;
+				--warn-light: #fdf3e8;
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			body,
+			.sheet {
+				font-family: 'Segoe UI', 'DejaVu Sans', sans-serif;
+				color: var(--ink);
+				background: white;
+			}
+
+			.sheet {
+				width: 100%;
+				max-width: 740px;
+				padding: 28px 32px 24px;
+				border: 1px solid var(--line);
+				border-radius: 6px;
+			}
+
+			.sheet-title,
+			.apiary-data,
+			.sheet-meta,
+			.section-head,
+			.alert-head,
+			.weather-field dt,
+			.row > dt,
+			.field-row label,
+			.dot-num,
+			.footer {
+				font-family: 'Consolas', 'DejaVu Sans Mono', monospace;
+			}
+
+			.apiary-data,
+			.sheet-meta,
+			.meta-field dt,
+			.weather-field dt,
+			.row > dt,
+			.row-meta,
+			.field-row label,
+			.dot-num,
+			.footer {
+				color: var(--ink-light);
+			}
+
+			.section-head,
+			.alert-head,
+			.meta-field dt,
+			.weather-field dt,
+			.row > dt {
+				text-transform: uppercase;
+			}
+
+			.sheet-header {
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				gap: 24px;
+				border-bottom: 2px solid var(--accent);
+				padding-bottom: 10px;
+				margin-bottom: 16px;
+			}
+
+			.sheet-identity {
+				min-width: 0;
+			}
+
+			.sheet-title {
+				font-size: 14px;
+				font-weight: 600;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--accent);
+			}
+
+			.apiary-data {
+				font-size: 11px;
+				margin-top: 3px;
+			}
+
+			.sheet-meta {
+				display: flex;
+				align-items: flex-start;
+				gap: 3em;
+				margin-right: 3em;
+				flex-shrink: 0;
+				font-size: 11px;
+			}
+
+			.meta-field {
+				display: flex;
+				flex-direction: column;
+				gap: 3px;
+				align-items: flex-start;
+			}
+
+			.meta-field dt {
+				font-size: 9px;
+				letter-spacing: 0.08em;
+			}
+
+			.meta-field dd {
+				color: var(--ink);
+			}
+
+			.weather {
+				background: var(--fill);
+				border-radius: 5px;
+				padding: 10px 14px;
+				margin-bottom: 22px;
+			}
+
+			.weather-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 6px 12px;
+			}
+
+			.weather-field {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				font-size: 12px;
+			}
+
+			.weather-field dt {
+				font-size: 10px;
+				letter-spacing: 0.07em;
+				white-space: nowrap;
+			}
+
+			.meta-field dd,
+			.weather-field dd {
+				flex: 1;
+				border-bottom: 1px solid var(--line);
+				min-height: 18px;
+			}
+
+			.section {
+				margin-bottom: 22px;
+			}
+
+			.section-head {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 0.14em;
+				color: var(--accent);
+				margin-bottom: 9px;
+			}
+
+			.section-head::after {
+				content: '';
+				flex: 1;
+				height: 1px;
+				background: var(--line-light);
+			}
+
+			.check-group {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 4px 10px;
+			}
+
+			.check-item {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				font-size: 12px;
+				white-space: nowrap;
+			}
+
+			.box {
+				width: 12px;
+				height: 12px;
+				border: 1px solid var(--line);
+				border-radius: 2px;
+				flex-shrink: 0;
+				display: inline-block;
+			}
+
+			.box.checked {
+				background: var(--accent);
+				border-color: var(--accent);
+				color: #fff;
+				font-size: 9px;
+				line-height: 10px;
+				text-align: center;
+			}
+
+			.box.checked::after {
+				content: '✓';
+			}
+
+			.box.warn {
+				background: var(--warn);
+				border-color: var(--warn);
+			}
+
+			.rows {
+				display: flex;
+				flex-direction: column;
+				gap: 9px;
+			}
+
+			.row {
+				display: flex;
+				align-items: baseline;
+				gap: 12px;
+			}
+
+			.row > dt {
+				flex: 0 0 92px;
+				font-size: 10px;
+				letter-spacing: 0.05em;
+			}
+
+			.row > dd {
+				display: flex;
+				flex-wrap: nowrap;
+				align-items: center;
+				gap: 16px;
+				font-size: 12px;
+			}
+
+			.row > dd > * {
+				flex-shrink: 0;
+			}
+
+			.row-meta {
+				white-space: nowrap;
+			}
+
+			.row-meta strong {
+				color: var(--ink);
+				font-weight: 600;
+			}
+
+			.field-row {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				font-size: 12px;
+			}
+
+			.field-row label {
+				font-size: 10px;
+				letter-spacing: 0.04em;
+				white-space: nowrap;
+				min-width: 70px;
+			}
+
+			.fill-value {
+				display: inline-block;
+				min-width: 24px;
+				border-bottom: 1px solid var(--line);
+				text-align: center;
+				color: var(--ink);
+			}
+
+			.rating-circles {
+				display: flex;
+				gap: 3px;
+			}
+
+			.dot {
+				width: 14px;
+				height: 14px;
+				border-radius: 50%;
+				border: 1px solid var(--line);
+				display: inline-block;
+				flex: none;
+			}
+
+			.dot.filled {
+				background: var(--accent);
+				border-color: var(--accent);
+			}
+
+			.dot-num {
+				font-size: 9px;
+				align-self: center;
+				margin-left: 2px;
+			}
+
+			.alert-box {
+				background: var(--warn-light);
+				border: 1px solid #e8c090;
+				border-left: 3px solid var(--warn);
+				border-radius: 4px;
+				padding: 8px 12px;
+				margin-bottom: 22px;
+			}
+
+			.alert-head {
+				font-size: 9px;
+				letter-spacing: 0.12em;
+				color: var(--warn);
+				font-weight: 600;
+				margin-bottom: 6px;
+			}
+
+			.alert-box .check-group {
+				gap: 4px 12px;
+			}
+
+			.alert-box .field-row {
+				margin-top: 6px;
+			}
+
+			.health-clear {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				margin-bottom: 22px;
+				font-size: 12px;
+				color: var(--accent);
+			}
+
+			.check-ok {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 16px;
+				height: 16px;
+				border-radius: 3px;
+				background: var(--accent);
+				color: #fff;
+				font-size: 11px;
+			}
+
+			.notes-area {
+				border: 1px solid var(--line);
+				border-radius: 4px;
+				padding: 8px 10px;
+				min-height: 52px;
+				background: var(--fill);
+			}
+
+			.notes-lines {
+				display: flex;
+				flex-direction: column;
+				gap: 9px;
+				margin-top: 4px;
+			}
+
+			.note-line {
+				border-bottom: 1px solid var(--line);
+				height: 1px;
+			}
+
+			.notes-text {
+				font-size: 12px;
+				line-height: 1.6;
+				white-space: pre-line;
+			}
+
+			.actions-inline {
+				font-size: 12px;
+				line-height: 1.5;
+			}
+
+			.footer {
+				display: flex;
+				justify-content: flex-end;
+				align-items: flex-end;
+				border-top: 1px solid var(--line);
+				padding-top: 8px;
+				margin-top: 4px;
+				font-size: 9px;
+				letter-spacing: 0.05em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="sheet">
+			<!-- Nagłówek: dane pasieki, ula i przeglądu -->
+			<header class="sheet-header">
+				<div class="sheet-identity">
+					<h1 class="sheet-title">Protokół przeglądu rodziny pszczelej</h1>
+					<p class="apiary-data">
+						{{ meta.apiary_name }} · {{ meta.beekeeper_name }} · WNI {{ meta.veterinary_number }}
+					</p>
+				</div>
+				<dl class="sheet-meta">
+					<div class="meta-field">
+						<dt>Ul nr</dt>
+						<dd>{{ meta.hive_number }}</dd>
+					</div>
+					<div class="meta-field">
+						<dt>Przegląd nr</dt>
+						<dd>{{ meta.inspection_number }}</dd>
+					</div>
+					<div class="meta-field">
+						<dt>Data</dt>
+						<dd>{{ meta.inspection_date }}</dd>
+					</div>
+				</dl>
+			</header>
+
+			<!-- Aktualna pogoda (Open-Meteo) -->
+			<section
+				class="weather"
+				aria-label="Aktualna pogoda"
+			>
+				<dl class="weather-grid">
+					<div class="weather-field">
+						<dt>Temp. °C</dt>
+						<dd>{% if weather %}{{ weather.temp }}{% endif %}°C</dd>
+					</div>
+					<div class="weather-field">
+						<dt>Wilgotność</dt>
+						<dd>{% if weather %}{{ weather.humidity }}{% endif %}%</dd>
+					</div>
+					<div class="weather-field">
+						<dt>Wiatr</dt>
+						<dd>{% if weather %}{{ weather.wind }}{% endif %} km/h</dd>
+					</div>
+					<div class="weather-field">
+						<dt>Zachmurzenie</dt>
+						<dd>{% if weather %}{{ weather.cloud_cover }}{% endif %}%</dd>
+					</div>
+					<div class="weather-field">
+						<dt>Opady</dt>
+						<dd>{% if weather %}{{ weather.precipitation }}{% endif %} mm</dd>
+					</div>
+					<div class="weather-field">
+						<dt>Pogoda</dt>
+						<dd>{% if weather %}{{ weather.weather_code | weather_label }}{% endif %}</dd>
+					</div>
+				</dl>
+			</section>
+
+			{% set ns = namespace(n=0) %}
+
+			<!-- Przegląd: Matka Pszczela -->
+			<section
+				class="section"
+				aria-labelledby="sec-matka"
+			>
+				<h2
+					class="section-head"
+					id="sec-matka"
+				>
+					{% set ns.n = ns.n + 1 %}{{ ns.n }} · Matka
+				</h2>
+				<dl class="rows">
+					<div class="row">
+						<dt>Status</dt>
+						<dd>
+							<span class="check-item"
+								><span class="box {% if queen.queen_status == 'seen' %}checked{% endif %}"></span>
+								widziana</span
+							>
+							<span class="check-item"
+								><span
+									class="box {% if queen.queen_status == 'not_seen_brood_ok' %}checked{% endif %}"
+								></span>
+								niewidziana, czerw OK</span
+							>
+							<span class="check-item"
+								><span class="box {% if queen.queen_status == 'missing' %}checked{% endif %}"></span>
+								brak matki</span
+							>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Znakowanie</dt>
+						<dd>
+							<span class="check-item"
+								><span class="box {% if queen.queen_marked %}checked{% endif %}"></span> znakowana</span
+							>
+							{% if queen.queen_marked and queen.queen_marker_color %}
+							<span class="row-meta"
+								>kolor: <strong>{{ queen.queen_marker_color | queen_color_label }}</strong></span
+							>
+							{% endif %}
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Mateczniki</dt>
+						<dd>
+							<span class="check-item"
+								><span class="box {% if queen.queen_cells == 'none' %}checked{% endif %}"></span>
+								brak</span
+							>
+							<span class="check-item"
+								><span class="box {% if queen.queen_cells == 'emergency' %}checked{% endif %}"></span>
+								ratunkowe</span
+							>
+							<span class="check-item"
+								><span class="box {% if queen.queen_cells == 'swarm' %}checked{% endif %}"></span>
+								rojowe</span
+							>
+							<span class="check-item"
+								><span class="box {% if queen.queen_cells == 'supersedure' %}checked{% endif %}"></span>
+								cicha wymiana</span
+							>
+							{% if queen.queen_cells != 'none' %}
+							<span class="row-meta">liczba: <strong>{{ queen.queen_cells_count }}</strong></span>
+							{% endif %}
+						</dd>
+					</div>
+				</dl>
+			</section>
+
+			<!-- Przegląd: Czerw -->
+			<section
+				class="section"
+				aria-labelledby="sec-czerw"
+			>
+				<h2
+					class="section-head"
+					id="sec-czerw"
+				>
+					{% set ns.n = ns.n + 1 %}{{ ns.n }} · Czerw
+				</h2>
+				<dl class="rows">
+					<div class="row">
+						<dt>Rodzaj</dt>
+						<dd>
+							<span class="check-item"
+								><span class="box {% if 'eggs' in brood.brood_types %}checked{% endif %}"></span>
+								jaja</span
+							>
+							<span class="check-item"
+								><span class="box {% if 'open' in brood.brood_types %}checked{% endif %}"></span>
+								otwarty (larwy)</span
+							>
+							<span class="check-item"
+								><span class="box {% if 'capped' in brood.brood_types %}checked{% endif %}"></span>
+								kryty</span
+							>
+							<span class="check-item"
+								><span class="box {% if 'drone' in brood.brood_types %}checked{% endif %}"></span>
+								trutowy</span
+							>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Zwartość</dt>
+						<dd>
+							<span class="rating-circles"
+								>{% for i in range(1, 6) %}<span
+									class="dot {% if brood.brood_pattern >= i %}filled{% endif %}"
+								></span
+								>{% endfor %}</span
+							>
+							<span class="dot-num">{{ brood.brood_pattern }} / 5</span>
+						</dd>
+					</div>
+				</dl>
+			</section>
+
+			<!-- Przegląd: Rodzina (siła, zachowanie, zasoby, przestrzeń) -->
+			<section
+				class="section"
+				aria-labelledby="sec-rodzina"
+			>
+				<h2
+					class="section-head"
+					id="sec-rodzina"
+				>
+					{% set ns.n = ns.n + 1 %}{{ ns.n }} · Rodzina
+				</h2>
+				<dl class="rows">
+					<div class="row">
+						<dt>Obsiadane</dt>
+						<dd>
+							<span class="row-meta"
+								>ramki <span class="fill-value">{{ colony.frames_covered }}</span></span
+							>
+							<span class="row-meta">(siła rodziny)</span>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Zachowanie</dt>
+						<dd>
+							<span class="check-item"
+								><span class="box {% if colony.behavior == 'calm' %}checked{% endif %}"></span>
+								spokojne</span
+							>
+							<span class="check-item"
+								><span class="box {% if colony.behavior == 'nervous' %}checked{% endif %}"></span>
+								nerwowe</span
+							>
+							<span class="check-item"
+								><span class="box {% if colony.behavior == 'aggressive' %}checked{% endif %}"></span>
+								agresywne</span
+							>
+							<span class="check-item"
+								><span class="box {% if colony.behavior == 'swarm_mood' %}checked{% endif %}"></span>
+								nastrój rojowy</span
+							>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Zapasy miodu</dt>
+						<dd>
+							<span class="check-item"
+								><span
+									class="box {% if colony.honey_stores == 'sufficient' %}checked{% endif %}"
+								></span>
+								wystarczające</span
+							>
+							<span class="check-item"
+								><span class="box {% if colony.honey_stores == 'low' %}checked{% endif %}"></span>
+								małe</span
+							>
+							<span class="check-item"
+								><span class="box {% if colony.honey_stores == 'none' %}checked{% endif %}"></span>
+								brak</span
+							>
+							<span class="row-meta"
+								>~ <span class="fill-value">{{ '%g'|format(colony.honey_kg) }}</span> kg</span
+							>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Przestrzeń</dt>
+						<dd>
+							<span class="check-item"
+								><span class="box {% if colony.hive_space == 'ok' %}checked{% endif %}"></span>
+								wystarczająca</span
+							>
+							<span class="check-item"
+								><span class="box {% if colony.hive_space == 'tight' %}checked{% endif %}"></span>
+								ciasno</span
+							>
+							<span class="check-item"
+								><span class="box {% if colony.hive_space == 'loose' %}checked{% endif %}"></span> za
+								luźno</span
+							>
+							<span class="check-item"
+								><span class="box {% if colony.hive_space == 'added_super' %}checked{% endif %}"></span>
+								nadstawka</span
+							>
+						</dd>
+					</div>
+				</dl>
+			</section>
+
+			<!-- Przegląd: Plastry i zasoby -->
+			<section
+				class="section"
+				aria-labelledby="sec-plastry"
+			>
+				<h2
+					class="section-head"
+					id="sec-plastry"
+				>
+					{% set ns.n = ns.n + 1 %}{{ ns.n }} · Plastry i zasoby
+				</h2>
+				<dl class="rows">
+					<div class="row">
+						<dt>Ramki</dt>
+						<dd>
+							<span class="row-meta">czerw <span class="fill-value">{{ comb.frames_brood }}</span></span>
+							<span class="row-meta">miód <span class="fill-value">{{ comb.frames_honey }}</span></span>
+							<span class="row-meta"
+								>pierzga <span class="fill-value">{{ comb.frames_pollen }}</span></span
+							>
+							<span class="row-meta">puste <span class="fill-value">{{ comb.frames_empty }}</span></span>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Stan plastrów</dt>
+						<dd>
+							<span class="row-meta"
+								><strong>{{ comb.comb_condition | comb_condition_label }}</strong></span
+							>
+						</dd>
+					</div>
+				</dl>
+			</section>
+
+			{% if actions.selected or actions.other %}
+			<section
+				class="section"
+				aria-labelledby="sec-dzialania"
+			>
+				<h2
+					class="section-head"
+					id="sec-dzialania"
+				>
+					{% set ns.n = ns.n + 1 %}{{ ns.n }} · Wykonane działania
+				</h2>
+				<div class="actions-inline">
+					{{ actions.selected | map('action_label') | join(', ') }}{% if actions.other %}{% if
+					actions.selected %}, {% endif %}{{ actions.other }}{% endif %}
+				</div>
+			</section>
+			{% endif %}
+
+			<section
+				class="section"
+				aria-labelledby="sec-uwagi"
+			>
+				<h2
+					class="section-head"
+					id="sec-uwagi"
+				>
+					{% set ns.n = ns.n + 1 %}{{ ns.n }} · Uwagi / notatki swobodne
+				</h2>
+				<div class="notes-area">
+					{% if notes %}
+					<div class="notes-text">{{ notes }}</div>
+					{% else %}
+					<div class="notes-lines">
+						<div class="note-line"></div>
+						<div class="note-line"></div>
+						<div class="note-line"></div>
+					</div>
+					{% endif %}
+				</div>
+			</section>
+
+			<!-- Przegląd: Zdrowie rodziny -->
+			{% if health.conditions or health.other %}
+			<div class="alert-box">
+				<div class="alert-head">⚠ Zdrowie — sygnały alarmowe</div>
+				<div class="check-group">
+					{% for condition in health.conditions %}
+					<div class="check-item"><span class="box warn"></span> {{ condition | health_label }}</div>
+					{% endfor %} {% if health.other %}
+					<div class="check-item"><span class="box warn"></span> {{ health.other }}</div>
+					{% endif %}
+				</div>
+				{% if 'varroa' in health.conditions %}
+				<div class="field-row">
+					<label>Osyp na dennicy</label>
+					<span class="row-meta"><strong>{{ health.varroa_drop_count }}</strong> roztoczy / 24h</span>
+				</div>
+				{% endif %}
+			</div>
+			{% else %}
+			<div class="health-clear"><span class="check-ok">✓</span> Brak sygnałów choroby</div>
+			{% endif %}
+
+			<div class="footer">
+				<div>wersja 1.0 · {{ meta.apiary_name }}</div>
+			</div>
+		</div>
+	</body>
+</html>
