@@ -41,3 +41,13 @@ class QueenData(BaseModel):
             raise ValueError("Unmarked queen cannot have a color")
 
         return self
+
+    @model_validator(mode="after")
+    def validate_cells(self):
+        if self.queen_cells != QueenCellType.none and self.queen_cells_count < 1:
+            raise ValueError(
+                "Queen cell count must be at least 1 when cells are present"
+            )
+
+        if self.queen_cells == QueenCellType.none and self.queen_cells_count != 0:
+            raise ValueError("Queen cells count must be 0 when there are no cells")
