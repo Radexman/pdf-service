@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8" />
+		<style>
+			@page {
+				size: A4;
+				margin: 14mm;
+			}
+
+			:root {
+				--ink: #1a1a18;
+				--ink-light: #6b6b65;
+				--line: #b8b6ac;
+				--line-light: #e8e6de;
+				--fill: #f5f3ec;
+				--accent: #2d5a1b;
+				--warn: #8a4a0a;
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			body,
+			.sheet {
+				font-family: 'Segoe UI', 'DejaVu Sans', sans-serif;
+				color: var(--ink);
+				background: white;
+			}
+
+			.sheet {
+				width: 100%;
+				max-width: 740px;
+				padding: 28px 32px 24px;
+				border: 1px solid var(--line);
+				border-radius: 6px;
+			}
+
+			.sheet-title,
+			.apiary-data,
+			.sheet-meta,
+			.section-head,
+			.alert-head,
+			.row > dt,
+			.field-row label,
+			.dot-num,
+			.footer {
+				font-family: 'Consolas', 'DejaVu Sans Mono', monospace;
+			}
+
+			.apiary-data,
+			.sheet-meta,
+			.meta-field dt,
+			.row > dt,
+			.row-meta,
+			.field-row label,
+			.dot-num,
+			.footer {
+				color: var(--ink-light);
+			}
+
+			.section-head,
+			.alert-head,
+			.meta-field dt,
+			.row > dt {
+				text-transform: uppercase;
+			}
+
+			.sheet-header {
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				gap: 24px;
+				border-bottom: 2px solid var(--accent);
+				padding-bottom: 10px;
+				margin-bottom: 16px;
+			}
+
+			.sheet-identity {
+				min-width: 0;
+			}
+
+			.sheet-title {
+				font-size: 14px;
+				font-weight: 600;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--accent);
+			}
+
+			.apiary-data {
+				font-size: 11px;
+				margin-top: 6px;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				gap: 4px 18px;
+			}
+
+			.apiary-data .blank {
+				display: inline-block;
+				border-bottom: 1px solid var(--line);
+				min-width: 90px;
+				min-height: 14px;
+			}
+
+			.sheet-meta {
+				display: flex;
+				align-items: flex-start;
+				gap: 2em;
+				margin-right: 1em;
+				flex-shrink: 0;
+				font-size: 11px;
+			}
+
+			.meta-field {
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+				align-items: flex-start;
+			}
+
+			.meta-field dt {
+				font-size: 9px;
+				letter-spacing: 0.08em;
+			}
+
+			.meta-field dd {
+				color: var(--ink);
+				border-bottom: 1px solid var(--line);
+				min-height: 20px;
+				min-width: 52px;
+			}
+
+			.section {
+				margin-bottom: 22px;
+			}
+
+			.section-head {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 0.14em;
+				color: var(--accent);
+				margin-bottom: 7px;
+			}
+
+			.section-head::after {
+				content: '';
+				flex: 1;
+				height: 1px;
+				background: var(--line-light);
+			}
+
+			.check-group {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 4px 10px;
+			}
+
+			.check-item {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				font-size: 12px;
+				white-space: nowrap;
+			}
+
+			.box {
+				width: 13px;
+				height: 13px;
+				border: 1px solid var(--ink-light);
+				border-radius: 2px;
+				flex-shrink: 0;
+				display: inline-block;
+			}
+
+			.rows {
+				display: flex;
+				flex-direction: column;
+				gap: 7px;
+			}
+
+			.row {
+				display: flex;
+				align-items: baseline;
+				gap: 12px;
+			}
+
+			.row > dt {
+				flex: 0 0 78px;
+				font-size: 10px;
+				letter-spacing: 0.05em;
+			}
+
+			.row > dd {
+				display: flex;
+				flex-wrap: nowrap;
+				align-items: center;
+				gap: 6px 11px;
+				font-size: 11.5px;
+			}
+
+			.row-meta {
+				white-space: nowrap;
+			}
+
+			.field-row {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				font-size: 12px;
+			}
+
+			.field-row label {
+				font-size: 10px;
+				letter-spacing: 0.04em;
+				white-space: nowrap;
+				min-width: 70px;
+			}
+
+			.fill-value {
+				display: inline-block;
+				min-width: 52px;
+				border-bottom: 1px solid var(--line);
+				text-align: center;
+				color: var(--ink);
+				min-height: 16px;
+			}
+
+			.rating-circles {
+				display: flex;
+				gap: 4px;
+			}
+
+			.dot {
+				width: 15px;
+				height: 15px;
+				border-radius: 50%;
+				border: 1px solid var(--ink-light);
+				display: inline-block;
+				flex: none;
+			}
+
+			.dot-num {
+				font-size: 10px;
+				align-self: center;
+				margin-left: 8px;
+				display: inline-flex;
+				align-items: center;
+				gap: 5px;
+				white-space: nowrap;
+			}
+
+			.dot-num .fill-value {
+				min-width: 34px;
+			}
+
+			.alert-head {
+				font-size: 10px;
+				letter-spacing: 0.12em;
+				color: var(--warn);
+				font-weight: 600;
+				margin-bottom: 8px;
+			}
+
+			.write-area {
+				border: 1px solid var(--line);
+				border-radius: 4px;
+				padding: 14px 14px;
+				background: white;
+			}
+
+			.write-lines {
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+			}
+
+			.write-line {
+				border-bottom: 1px solid var(--line);
+				height: 1px;
+			}
+
+			.footer {
+				display: flex;
+				justify-content: flex-end;
+				align-items: flex-end;
+				border-top: 1px solid var(--line);
+				padding-top: 8px;
+				margin-top: 4px;
+				font-size: 9px;
+				letter-spacing: 0.05em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="sheet">
+			<!-- Nagłówek: dane pasieki, ula i przeglądu -->
+			<header class="sheet-header">
+				<div class="sheet-identity">
+					<h1 class="sheet-title">Protokół przeglądu rodziny pszczelej</h1>
+					<div class="apiary-data">
+						<span>Pasieka: <span class="blank"></span></span>
+						<span>Pszczelarz: <span class="blank"></span></span>
+						<span>WNI: <span class="blank"></span></span>
+					</div>
+				</div>
+				<dl class="sheet-meta">
+					<div class="meta-field">
+						<dt>Ul nr</dt>
+						<dd></dd>
+					</div>
+					<div class="meta-field">
+						<dt>Przegląd nr</dt>
+						<dd></dd>
+					</div>
+					<div class="meta-field">
+						<dt>Data</dt>
+						<dd></dd>
+					</div>
+				</dl>
+			</header>
+
+			<!-- Przegląd: Matka Pszczela -->
+			<section class="section">
+				<h2 class="section-head">1 · Matka</h2>
+				<dl class="rows">
+					<div class="row">
+						<dt>Status</dt>
+						<dd>
+							<span class="check-item"><span class="box"></span> widziana</span>
+							<span class="check-item"><span class="box"></span> niewidziana, czerw OK</span>
+							<span class="check-item"><span class="box"></span> brak matki</span>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Znakowanie</dt>
+						<dd>
+							<span class="check-item"><span class="box"></span> znakowana</span>
+							<span class="row-meta">kolor: <span class="fill-value"></span></span>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Mateczniki</dt>
+						<dd>
+							<span class="check-item"><span class="box"></span> brak</span>
+							<span class="check-item"><span class="box"></span> ratunkowe</span>
+							<span class="check-item"><span class="box"></span> rojowe</span>
+							<span class="check-item"><span class="box"></span> cicha wymiana</span>
+							<span class="row-meta">liczba: <span class="fill-value"></span></span>
+						</dd>
+					</div>
+				</dl>
+			</section>
+
+			<!-- Przegląd: Czerw -->
+			<section class="section">
+				<h2 class="section-head">2 · Czerw</h2>
+				<dl class="rows">
+					<div class="row">
+						<dt>Rodzaj</dt>
+						<dd>
+							<span class="check-item"><span class="box"></span> jaja</span>
+							<span class="check-item"><span class="box"></span> otwarty (larwy)</span>
+							<span class="check-item"><span class="box"></span> kryty</span>
+							<span class="check-item"><span class="box"></span> trutowy</span>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Zwartość</dt>
+						<dd>
+							<span class="rating-circles">
+								<span class="dot"></span>
+								<span class="dot"></span>
+								<span class="dot"></span>
+								<span class="dot"></span>
+								<span class="dot"></span>
+							</span>
+							<span class="dot-num">ocena <span class="fill-value"></span> / 5</span>
+						</dd>
+					</div>
+				</dl>
+			</section>
+
+			<!-- Przegląd: Rodzina (siła, zachowanie, zasoby, przestrzeń) -->
+			<section class="section">
+				<h2 class="section-head">3 · Rodzina</h2>
+				<dl class="rows">
+					<div class="row">
+						<dt>Obsiadane</dt>
+						<dd>
+							<span class="row-meta">ramki <span class="fill-value"></span></span>
+							<span class="row-meta">(siła rodziny)</span>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Zachowanie</dt>
+						<dd>
+							<span class="check-item"><span class="box"></span> spokojne</span>
+							<span class="check-item"><span class="box"></span> nerwowe</span>
+							<span class="check-item"><span class="box"></span> agresywne</span>
+							<span class="check-item"><span class="box"></span> nastrój rojowy</span>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Zapasy miodu</dt>
+						<dd>
+							<span class="check-item"><span class="box"></span> wystarczające</span>
+							<span class="check-item"><span class="box"></span> małe</span>
+							<span class="check-item"><span class="box"></span> brak</span>
+							<span class="row-meta">~ <span class="fill-value"></span> kg</span>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Przestrzeń</dt>
+						<dd>
+							<span class="check-item"><span class="box"></span> wystarczająca</span>
+							<span class="check-item"><span class="box"></span> ciasno</span>
+							<span class="check-item"><span class="box"></span> za luźno</span>
+							<span class="check-item"><span class="box"></span> nadstawka</span>
+						</dd>
+					</div>
+				</dl>
+			</section>
+
+			<!-- Przegląd: Plastry i zasoby -->
+			<section class="section">
+				<h2 class="section-head">4 · Plastry i zasoby</h2>
+				<dl class="rows">
+					<div class="row">
+						<dt>Ramki</dt>
+						<dd>
+							<span class="row-meta">czerw <span class="fill-value"></span></span>
+							<span class="row-meta">miód <span class="fill-value"></span></span>
+							<span class="row-meta">pierzga <span class="fill-value"></span></span>
+							<span class="row-meta">puste <span class="fill-value"></span></span>
+						</dd>
+					</div>
+					<div class="row">
+						<dt>Stan plastrów</dt>
+						<dd>
+							<span class="check-item"><span class="box"></span> dobry</span>
+							<span class="check-item"><span class="box"></span> do wymiany</span>
+							<span class="check-item"><span class="box"></span> stare / ciemne</span>
+						</dd>
+					</div>
+				</dl>
+			</section>
+
+			<!-- Wykonane działania: wolne pole do wpisania -->
+			<section class="section">
+				<h2 class="section-head">5 · Wykonane działania</h2>
+				<div class="write-area">
+					<div class="write-lines">
+						<div class="write-line"></div>
+						<div class="write-line"></div>
+						<div class="write-line"></div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Uwagi / notatki: wolne pole do wpisania -->
+			<section class="section">
+				<h2 class="section-head">6 · Uwagi / notatki swobodne</h2>
+				<div class="write-area">
+					<div class="write-lines">
+						<div class="write-line"></div>
+						<div class="write-line"></div>
+						<div class="write-line"></div>
+						<div class="write-line"></div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Zdrowie rodziny: wolne pole do wpisania -->
+			<section class="section">
+				<h2 class="section-head">7 · Zdrowie rodziny</h2>
+				<div class="alert-head">⚠ Objawy chorobowe / sygnały alarmowe</div>
+				<div class="write-area">
+					<div class="write-lines">
+						<div class="write-line"></div>
+						<div class="write-line"></div>
+						<div class="write-line"></div>
+					</div>
+				</div>
+			</section>
+
+			<div class="footer">
+				<div>wersja 1.0 · formularz do wypełnienia ręcznego</div>
+			</div>
+		</div>
+	</body>
+</html>
