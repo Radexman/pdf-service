@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, field_validator
 from enum import Enum
 
 
@@ -48,25 +48,21 @@ class ActionType(str, Enum):
     insulation_added = "insulation_added"
     insulation_removed = "insulation_removed"
 
-    other = "other"
-
 
 class ActionsData(BaseModel):
     selected: list[ActionType] = Field(
-        default_factory=list, description="Performed beekeping actions"
+        default_factory=list, description="Performed beekeeping actions"
     )
     other: str | None = Field(
-        default=None, max_length=500, description="Custom beekeping action"
+        default=None,
+        max_length=500,
+        description="Free-text description of other actions",
     )
 
-    @model_validator(mode="after")
-    def validate_other(self):
-        has_other = ActionType.other in self.selected
-
-        if has_other and not self.other:
-            raise ValueError("'other' action requires description")
-
-        if not has_other and self.other:
-            raise ValueError("Custom description requires 'other' action")
-
-        return self
+    @field_validator("other", mode="before")
+    @classmethod
+    def empty_other_to_none(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        value = value.strip()
+        return value or None
