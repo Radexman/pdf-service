@@ -51,3 +51,5 @@ class QueenData(BaseModel):
 
         if self.queen_cells == QueenCellType.none and self.queen_cells_count != 0:
             raise ValueError("Queen cells count must be 0 when there are no cells")
+
+        return self
