@@ -38,5 +38,4 @@ ACTION_LABELS: dict[str, str] = {
     ActionType.mouse_guard_removed: "Zdjęto zabezpieczenie przed myszami",
     ActionType.insulation_added: "Dodano ocieplenie",
     ActionType.insulation_removed: "Usunięto ocieplenie",
-    ActionType.other: "Inne",
 }
