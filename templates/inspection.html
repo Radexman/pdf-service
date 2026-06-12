@@ -332,45 +332,12 @@
 				margin-top: 6px;
 			}
 
-			.health-clear {
-				display: flex;
-				align-items: center;
-				gap: 8px;
-				margin-bottom: 22px;
-				font-size: 12px;
-				color: var(--accent);
-			}
-
-			.check-ok {
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				width: 16px;
-				height: 16px;
-				border-radius: 3px;
-				background: var(--accent);
-				color: #fff;
-				font-size: 11px;
-			}
-
 			.notes-area {
 				border: 1px solid var(--line);
 				border-radius: 4px;
 				padding: 8px 10px;
 				min-height: 52px;
 				background: var(--fill);
-			}
-
-			.notes-lines {
-				display: flex;
-				flex-direction: column;
-				gap: 9px;
-				margin-top: 4px;
-			}
-
-			.note-line {
-				border-bottom: 1px solid var(--line);
-				height: 1px;
 			}
 
 			.notes-text {
@@ -714,8 +681,7 @@
 					actions.selected %}, {% endif %}{{ actions.other }}{% endif %}
 				</div>
 			</section>
-			{% endif %}
-
+			{% endif %} {% if notes %}
 			<section
 				class="section"
 				aria-labelledby="sec-uwagi"
@@ -727,17 +693,10 @@
 					{% set ns.n = ns.n + 1 %}{{ ns.n }} · Uwagi / notatki swobodne
 				</h2>
 				<div class="notes-area">
-					{% if notes %}
 					<div class="notes-text">{{ notes }}</div>
-					{% else %}
-					<div class="notes-lines">
-						<div class="note-line"></div>
-						<div class="note-line"></div>
-						<div class="note-line"></div>
-					</div>
-					{% endif %}
 				</div>
 			</section>
+			{% endif %}
 
 			<!-- Przegląd: Zdrowie rodziny -->
 			{% if health.conditions or health.other %}
@@ -757,8 +716,6 @@
 				</div>
 				{% endif %}
 			</div>
-			{% else %}
-			<div class="health-clear"><span class="check-ok">✓</span> Brak sygnałów choroby</div>
 			{% endif %}
 
 			<div class="footer">
