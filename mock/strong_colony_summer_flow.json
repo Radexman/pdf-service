@@ -1,0 +1,70 @@
+{
+	"meta": {
+		"apiary_name": "Pasieka Siek",
+		"beekeeper_name": "Radosław Siek",
+		"veterinary_number": "160947166",
+		"hive_number": "3",
+		"inspection_number": "5",
+		"inspection_date": "2026-06-12"
+	},
+	"weather": {
+		"temp": 24,
+		"humidity": 55,
+		"wind": 8,
+		"precipitation": 0.0,
+		"cloud_cover": 10,
+		"weather_code": 0
+	},
+	"queen": {
+		"queen_status": "seen",
+		"queen_marked": true,
+		"queen_marker_color": "green",
+		"queen_cells": "none",
+		"queen_cells_count": 0
+	},
+	"brood": {
+		"brood_types": ["eggs", "open", "capped"],
+		"brood_pattern": 5
+	},
+	"colony": {
+		"frames_covered": 18,
+		"behavior": "calm",
+		"hive_space": "added_super"
+	},
+	"comb": {
+		"frame_type": "wielkopolska",
+		"slots": 20,
+		"frames": [
+			{ "position": 1, "comb_state": "drawn", "honey": 10 },
+			{ "position": 2, "comb_state": "drawn", "honey": 9, "pollen": 1 },
+			{ "position": 3, "comb_state": "drawn", "brood": 4, "honey": 3, "pollen": 3 },
+			{ "position": 4, "comb_state": "drawn", "brood": 8, "honey": 1, "pollen": 1 },
+			{ "position": 5, "comb_state": "drawn", "brood": 9, "honey": 1 },
+			{ "position": 6, "comb_state": "drawn", "brood": 10 },
+			{ "position": 7, "comb_state": "drawn", "brood": 10 },
+			{ "position": 8, "comb_state": "drawn", "brood": 9, "pollen": 1 },
+			{ "position": 9, "comb_state": "drawn", "brood": 8, "honey": 1, "pollen": 1 },
+			{ "position": 10, "comb_state": "drawn", "brood": 5, "honey": 3, "pollen": 2 },
+			{ "position": 11, "comb_state": "drawn", "honey": 10 },
+			{ "position": 12, "comb_state": "drawn", "honey": 10 },
+			{ "position": 13, "comb_state": "drawn", "honey": 9, "pollen": 1 },
+			{ "position": 14, "comb_state": "drawn", "honey": 8 },
+			{ "position": 15, "comb_state": "drawn", "honey": 7 },
+			{ "position": 16, "comb_state": "drawn", "honey": 6 },
+			{ "position": 17, "comb_state": "drawn", "honey": 5 },
+			{ "position": 18, "comb_state": "drawn", "honey": 3, "wear": "old" },
+			{ "position": 19, "comb_state": "drawn" },
+			{ "position": 20, "comb_state": "foundation" }
+		]
+	},
+	"actions": {
+		"selected": ["super_added", "comb_added_foundation"],
+		"other": null
+	},
+	"health": {
+		"conditions": [],
+		"varroa_drop_count": null,
+		"other": null
+	},
+	"notes": "Rodzina bardzo silna, spokojna na plastrach, czerw zwarty na 6,3 ramki. Pozytek z rzepaku i akacji - nadstawka zalana, ramki 11-14 gotowe do miodobrania w przyszlym tygodniu. Dodano nadstawke i dwie ramki wezy. Brak matecznikow, nastroj rojowy nie wystapil. Ramke 18 (stary plaster) wycofac po odwirowaniu."
+}

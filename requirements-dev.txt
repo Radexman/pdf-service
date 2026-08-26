@@ -1,0 +1,4 @@
+-r requirements.txt
+# `fastapi dev` CLI (dev-only; prod runs `uvicorn main:app` in Docker/Render).
+fastapi[standard]==0.136.3
+pytest==9.1.1
