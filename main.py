@@ -1,9 +1,20 @@
 from fastapi import FastAPI, Response
+from fastapi.responses import RedirectResponse
 
 from models.inspection import InspectionPayload
 from pdf import generate_pdf
 
 app = FastAPI()
+
+
+@app.get("/", include_in_schema=False)
+def root():
+    """Land on the API docs instead of a bare 404.
+
+    /generate-pdf is POST-only, so it cannot be the redirect target — a browser
+    GET would hit 405.
+    """
+    return RedirectResponse(url="/docs")
 
 
 @app.get("/health")

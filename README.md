@@ -16,6 +16,7 @@ JSON payload  ──▶  Pydantic validation  ──▶  Jinja2 → HTML  ──
 
 | Method | Path | Purpose |
 |---|---|---|
+| `GET` | `/` | Redirects to `/docs` |
 | `GET` | `/health` | Liveness probe — `{"status": "ok"}` |
 | `POST` | `/generate-pdf` | Inspection payload in, PDF bytes out |
 | `GET` | `/docs` | Swagger UI (auto-generated, interactive) |
@@ -62,10 +63,9 @@ docker build -t pdf-service .
 docker run --rm -p 8000:8000 pdf-service
 ```
 
-Then open <http://localhost:8000/docs> — **not** the `http://0.0.0.0:8000` that
+Then open <http://localhost:8000> — **not** the `http://0.0.0.0:8000` that
 uvicorn prints on startup. `0.0.0.0` means "bind every interface"; it is not a
-browsable address and Chrome rejects it with `ERR_ADDRESS_INVALID`. There is
-also no `/` route, so the bare host returns a 404 by design.
+browsable address and Chrome rejects it with `ERR_ADDRESS_INVALID`.
 
 The image installs Pango/HarfBuzz and DejaVu fonts, which a bare `python:slim`
 lacks — without them WeasyPrint cannot lay out text or draw the `✓` glyph. The
