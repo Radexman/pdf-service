@@ -29,19 +29,28 @@
 	"colony": {
 		"frames_covered": 11,
 		"behavior": "swarm_mood",
-		"honey_stores": "sufficient",
-		"hive_space": "tight",
-		"honey_kg": 18.0
+		"hive_space": "tight"
 	},
 	"comb": {
-		"frames_brood": 7,
-		"frames_honey": 4,
-		"frames_pollen": 2,
-		"frames_empty": 0,
-		"comb_condition": "needs_replacement"
+		"frame_type": "wielkopolska",
+		"frames": [
+			{ "position": 1, "comb_state": "drawn", "honey": 10, "wear": "needs_replacement" },
+			{ "position": 2, "comb_state": "drawn", "honey": 9, "pollen": 1 },
+			{ "position": 3, "comb_state": "drawn", "brood": 6, "honey": 2, "pollen": 2 },
+			{ "position": 4, "comb_state": "drawn", "brood": 8, "honey": 1, "pollen": 1 },
+			{ "position": 5, "comb_state": "drawn", "brood": 8, "honey": 1, "pollen": 1 },
+			{ "position": 6, "comb_state": "drawn", "brood": 8, "honey": 1, "pollen": 1 },
+			{ "position": 7, "comb_state": "drawn", "brood": 8, "honey": 1, "pollen": 1 },
+			{ "position": 8, "comb_state": "drawn", "brood": 7, "honey": 1, "pollen": 1 },
+			{ "position": 9, "comb_state": "drawn", "brood": 7, "honey": 1, "pollen": 1 },
+			{ "position": 10, "comb_state": "drawn", "pollen": 5, "honey": 4 },
+			{ "position": 11, "comb_state": "drawn", "honey": 10 },
+			{ "position": 12, "comb_state": "drawn", "honey": 9, "pollen": 1 },
+			{ "position": 13, "comb_state": "drawn", "honey": 8, "pollen": 1, "wear": "old" }
+		]
 	},
 	"actions": {
-		"selected": ["split_made", "queen_cells_removed", "super_added", "treatment_formic_acid", "other"],
+		"selected": ["split_made", "queen_cells_removed", "super_added", "treatment_formic_acid"],
 		"other": "Usunieto plastry z mumiami grzybicy wapiennej i odkazono dennice"
 	},
 	"health": {

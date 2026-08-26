@@ -5,7 +5,11 @@ from weasyprint import HTML
 
 from constants.actions import ACTION_LABELS
 from constants.health import HEALTH_LABELS
-from constants.labels import COMB_CONDITION_LABELS, QUEEN_MARKER_COLOR_LABELS
+from constants.labels import (
+    COMB_CONDITION_LABELS,
+    HONEY_STORES_LABELS,
+    QUEEN_MARKER_COLOR_LABELS,
+)
 from constants.weather import WEATHER_CODES
 from models.inspection import InspectionPayload
 
@@ -21,6 +25,9 @@ env.filters["health_label"] = lambda k: HEALTH_LABELS.get(k, k)
 env.filters["weather_label"] = lambda c: WEATHER_CODES.get(c, "—")
 env.filters["queen_color_label"] = lambda k: QUEEN_MARKER_COLOR_LABELS.get(k, k)
 env.filters["comb_condition_label"] = lambda k: COMB_CONDITION_LABELS.get(k, k)
+env.filters["honey_stores_label"] = lambda k: HONEY_STORES_LABELS.get(k, k)
+# Polish decimal separator; trims the trailing ".0" on whole frames.
+env.filters["dec"] = lambda v: f"{v:g}".replace(".", ",")
 
 
 def generate_pdf(payload: InspectionPayload) -> bytes:

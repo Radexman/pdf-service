@@ -585,25 +585,15 @@
 							>
 						</dd>
 					</div>
+					<!-- Wyliczone z wypełnienia ramek — nie zaznaczane w terenie -->
 					<div class="row">
 						<dt>Zapasy miodu</dt>
 						<dd>
-							<span class="check-item"
-								><span
-									class="box {% if colony.honey_stores == 'sufficient' %}checked{% endif %}"
-								></span>
-								wystarczające</span
-							>
-							<span class="check-item"
-								><span class="box {% if colony.honey_stores == 'low' %}checked{% endif %}"></span>
-								małe</span
-							>
-							<span class="check-item"
-								><span class="box {% if colony.honey_stores == 'none' %}checked{% endif %}"></span>
-								brak</span
-							>
+							<span class="row-meta"><strong>{{ comb.honey_stores | honey_stores_label }}</strong></span>
+							<span class="row-meta">~ <span class="fill-value">{{ comb.honey_kg | dec }}</span> kg</span>
 							<span class="row-meta"
-								>~ <span class="fill-value">{{ '%g'|format(colony.honey_kg) }}</span> kg</span
+								>({{ comb.honey_frames_equiv | dec }} ramki × {{ comb.frame_capacity_kg | dec }}
+								kg)</span
 							>
 						</dd>
 					</div>
@@ -643,15 +633,25 @@
 					{% set ns.n = ns.n + 1 %}{{ ns.n }} · Plastry i zasoby
 				</h2>
 				<dl class="rows">
+					<!-- Równoważniki pełnych ramek, liczone z wypełnienia w dziesiątych -->
 					<div class="row">
 						<dt>Ramki</dt>
 						<dd>
-							<span class="row-meta">czerw <span class="fill-value">{{ comb.frames_brood }}</span></span>
-							<span class="row-meta">miód <span class="fill-value">{{ comb.frames_honey }}</span></span>
 							<span class="row-meta"
-								>pierzga <span class="fill-value">{{ comb.frames_pollen }}</span></span
+								>czerw <span class="fill-value">{{ comb.brood_frames_equiv | dec }}</span></span
 							>
-							<span class="row-meta">puste <span class="fill-value">{{ comb.frames_empty }}</span></span>
+							<span class="row-meta"
+								>miód <span class="fill-value">{{ comb.honey_frames_equiv | dec }}</span></span
+							>
+							<span class="row-meta"
+								>pierzga <span class="fill-value">{{ comb.pollen_frames_equiv | dec }}</span></span
+							>
+							<span class="row-meta"
+								>puste <span class="fill-value">{{ comb.empty_frames_equiv | dec }}</span></span
+							>
+							<span class="row-meta"
+								>węza <span class="fill-value">{{ comb.foundation_frames }}</span></span
+							>
 						</dd>
 					</div>
 					<div class="row">
@@ -659,6 +659,10 @@
 						<dd>
 							<span class="row-meta"
 								><strong>{{ comb.comb_condition | comb_condition_label }}</strong></span
+							>
+							<span class="row-meta"
+								>obsadzone ramki: <strong>{{ comb.occupied_frames }}</strong> / {{ comb.frames | length
+								}}</span
 							>
 						</dd>
 					</div>
@@ -719,7 +723,7 @@
 			{% endif %}
 
 			<div class="footer">
-				<div>wersja 1.0 · {{ meta.apiary_name }}</div>
+				<div>wersja 1.1 · {{ meta.apiary_name }}</div>
 			</div>
 		</div>
 	</body>

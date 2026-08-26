@@ -29,16 +29,23 @@
 	"colony": {
 		"frames_covered": 7,
 		"behavior": "nervous",
-		"honey_stores": "low",
-		"hive_space": "ok",
-		"honey_kg": 6.0
+		"hive_space": "ok"
 	},
 	"comb": {
-		"frames_brood": 4,
-		"frames_honey": 2,
-		"frames_pollen": 1,
-		"frames_empty": 3,
-		"comb_condition": "old"
+		"frame_type": "wielkopolska",
+		"slots": 10,
+		"frames": [
+			{ "position": 1, "comb_state": "drawn", "honey": 4, "wear": "old" },
+			{ "position": 2, "comb_state": "drawn", "honey": 3, "pollen": 2 },
+			{ "position": 3, "comb_state": "drawn", "brood": 7, "honey": 1, "pollen": 1 },
+			{ "position": 4, "comb_state": "drawn", "brood": 8, "pollen": 1 },
+			{ "position": 5, "comb_state": "drawn", "brood": 6, "honey": 1, "pollen": 2 },
+			{ "position": 6, "comb_state": "drawn", "brood": 5, "pollen": 1 },
+			{ "position": 7, "comb_state": "drawn", "pollen": 4 },
+			{ "position": 8, "comb_state": "drawn" },
+			{ "position": 9, "comb_state": "drawn" },
+			{ "position": 10, "comb_state": "foundation" }
+		]
 	},
 	"actions": {
 		"selected": ["comb_removed_drone", "treatment_oxalic_acid", "entrance_reduced"],
