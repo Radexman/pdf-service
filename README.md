@@ -1,4 +1,4 @@
-# pdf-service
+# beehive-inspection-pdf-service
 
 Renders a beekeeping inspection (**protokół przeglądu rodziny pszczelej**) to a
 print-ready A4 PDF in Polish.
